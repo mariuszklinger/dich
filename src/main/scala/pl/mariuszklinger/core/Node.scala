@@ -36,15 +36,21 @@ class Node(_nick:String, port:Int) {
         true
     }
 
-    def sendText(t:String){
+    private def _send(m:Message){
         neighbours.foreach((client:DichClient) => {
-            client.send(new Message(MESSAGE_TYPE.CHAT.id, t))
+            client.send(m)
         })
     }
 
-    def sendEcho(t:String){
-        neighbours.foreach((client:DichClient) => {
-            client.send(new Message(MESSAGE_TYPE.ECHO.id, t))
-        })
+    def sendText(t:String){
+        _send(new Message(MESSAGE_TYPE.CHAT, t))
+    }
+
+    def sendEchoRequest(t:String){
+        _send(new Message(MESSAGE_TYPE.ECHO_REQ, t))
+    }
+
+    def sendEchoResponse(t:String){
+        _send(new Message(MESSAGE_TYPE.ECHO_RES, t))
     }
 }

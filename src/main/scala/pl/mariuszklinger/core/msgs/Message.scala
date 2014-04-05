@@ -1,19 +1,19 @@
 package pl.mariuszklinger.core.msgs
 
-import pl.mariuszklinger.core.msgs.MESSAGE_TYPE.MESSAGE_TYPE
+object MESSAGE_TYPE {
 
-object MESSAGE_TYPE extends Enumeration {
-    type MESSAGE_TYPE = Value
+    type MT = Byte
 
-    val CHAT = Value(1)
-    val NOTICE = Value(2)
-    val ECHO = Value(3)
+    val ECHO_REQ:MT = -2.toByte
+    val ECHO_RES:MT = -1.toByte
+
+    val CHAT:MT = 1.toByte
+    val NOTICE:MT = 2.toByte
 }
 
-class Message(_mtype:Int, _o:Object) {
+class Message(_mtype:MESSAGE_TYPE.MT, _o:Object) {
     var obj = _o
     val mtype = _mtype
 
-    def this() = this(1, null)
-    //print(TYPE.CHAT.id)
+    def this() = this(MESSAGE_TYPE.CHAT, null)
 }

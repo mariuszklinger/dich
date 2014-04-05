@@ -1,6 +1,5 @@
 package pl.mariuszklinger.core.tools
 
-import scala.collection.mutable.PriorityQueue
 import pl.mariuszklinger.core.network.DichClient
 import scala.collection.mutable
 
@@ -10,5 +9,5 @@ object NodeOrdering extends Ordering[DichClient](){
 }
 
 object NeighboursQueue extends mutable.PriorityQueue[DichClient]()(NodeOrdering){
-    println("Constructor: " + this.getClass.getSimpleName)
+
 }

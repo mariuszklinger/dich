@@ -9,8 +9,6 @@ object Main {
         var n2 = new Node("Bob", 8083)
 
         n2.connect("localhost", 8081)
-        n2.sendText("hello!")
-
-        println(MESSAGE_TYPE.CHAT.id)
+        n2.sendEchoRequest("hello!")
     }
 }

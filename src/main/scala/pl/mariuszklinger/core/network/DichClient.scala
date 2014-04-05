@@ -10,9 +10,6 @@ class DichClient {
     var client: Client = new Client()
 
     val kryo: Kryo = client.getKryo()
-    kryo.register(classOf[SomeRequest])
-    kryo.register(classOf[SomeResponse])
-    kryo.register(classOf[MESSAGE_TYPE.MESSAGE_TYPE])
     kryo.register(classOf[Message])
 
     def run(host:String, port:Int) {
@@ -21,18 +18,29 @@ class DichClient {
             override def received(connection: Connection, obj: Object) {
 
                 obj match {
-                    case sr: SomeResponse => println(sr.text)
-                    case ka: KeepAlive => print("C")
+                    case ka: KeepAlive =>
+                        print("-")
+
+                    case m:Message =>
+
+                        m.mtype match {
+
+                            case MESSAGE_TYPE.ECHO_REQ =>
+                                println("ECHO_REQ: " + m.obj)
+                                connection.sendTCP(new Message(MESSAGE_TYPE.ECHO_RES, m.obj))
+
+                            case MESSAGE_TYPE.ECHO_RES =>
+                                println("ECHO_RES: " + m.obj)
+                        }
                 }
             }
         })
 
         client.start()
         client.connect(5000, host, port)
-        //println("connected?" + client.isConnected)
 
-        val request: Message = new Message(MESSAGE_TYPE.CHAT.id, "[msg] client => server")
-        client.sendTCP(request)
+        //val request: Message = new Message(MESSAGE_TYPE.CHAT, "[msg] client => server")
+        //client.sendTCP(request)
     }
 
     def send(r:Message){
