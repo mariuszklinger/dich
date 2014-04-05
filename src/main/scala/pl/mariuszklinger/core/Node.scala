@@ -32,7 +32,7 @@ class Node(_nick:String, port:Int) {
             case e: IOException => false
         }
 
-        log.info("connected to " + host + ":" + port)
+        //log.info("connected to " + host + ":" + port)
         true
     }
 
