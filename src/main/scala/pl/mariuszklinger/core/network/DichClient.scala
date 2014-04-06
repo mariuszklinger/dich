@@ -6,16 +6,17 @@ import pl.mariuszklinger.core.msgs._
 
 class DichClient {
 
-    var client: Client = new Client()
-
-    val kryo: Kryo = client.getKryo()
-    kryo.register(classOf[Message])
+    var listener:DichListener = new DichListener
+    val client: Client = new Client()
 
     def run(host:String, port:Int) {
 
-        client.addListener(new DichListener)
+        val kryo: Kryo = client.getKryo()
+        kryo.register(classOf[Message])
 
-        client.start()
+        client.addListener(listener)
+
+        client.start
         client.connect(5000, host, port)
     }
 

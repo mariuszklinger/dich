@@ -16,13 +16,12 @@ class Node(_nick:String, port:Int) {
     private var neighbours = NeighboursQueue
     private val nick = _nick
 
-    val server = new DichServer()
-    server.run(port)
+    val dich_server = new DichServer()
+    dich_server.run(port)
 
     def connect(host:String, port:Int): Boolean = {
 
-        var client = new DichClient()
-        client = new DichClient()
+        var client = new DichClient
         client.run(host, port)
 
         try {
