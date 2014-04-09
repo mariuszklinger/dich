@@ -2,15 +2,18 @@ package pl.mariuszklinger.core.network
 
 import com.esotericsoftware.kryonet._
 import com.esotericsoftware.kryo.Kryo
+
 import pl.mariuszklinger.core.msgs._
+import pl.mariuszklinger.core.Node
 
-class DichServer{
+class DichServer(_node:Node){
 
-    var listener:DichListener = new DichListener
+    def this() = this(null)
+
+    var listener:DichListener = new DichListener(_node)
+    var server:Server = new Server
 
     def run(port:Int) {
-        val server: Server = new Server()
-
         val kryo: Kryo = server.getKryo()
         kryo.register(classOf[Message])
 

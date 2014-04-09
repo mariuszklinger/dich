@@ -1,13 +1,11 @@
 package pl.mariuszklinger.core
 
-import pl.mariuszklinger.core.network.{DichClient, DichServer}
 import java.io.IOException
 import org.apache.log4j.Logger
+
+import pl.mariuszklinger.core.network.{DichClient, DichServer}
 import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
-import javax.xml.ws.Service.Mode
-import scala.collection.mutable
 import pl.mariuszklinger.core.tools.NeighboursQueue
-import pl.mariuszklinger.core.archive.MessageProcessor
 
 class Node(_nick:String, port:Int) {
 
@@ -16,8 +14,11 @@ class Node(_nick:String, port:Int) {
     private var neighbours = NeighboursQueue
     private val nick = _nick
 
-    val dich_server = new DichServer()
-    dich_server.run(port)
+    val dich_server = new DichServer(this)
+
+    def run(){
+        dich_server.run(port)
+    }
 
     def connect(host:String, port:Int): Boolean = {
 

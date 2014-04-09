@@ -2,13 +2,30 @@ package pl.mariuszklinger.core.network
 
 import com.esotericsoftware.kryonet.{Connection, Listener}
 import com.esotericsoftware.kryonet.FrameworkMessage.KeepAlive
+
 import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
+import pl.mariuszklinger.core.Node
 
-class DichListener extends Listener{
+class DichListener(_node:Node) extends Listener{
 
-    def echoReqCallback(connection:Connection, m:Message) {
-        println("ECHO_REQ: " + m.obj)
-        connection.sendTCP(new Message(MESSAGE_TYPE.ECHO_RES, m.obj))
+    var node = _node
+
+    def this() = this(null)
+
+    def echoReqCallback(m:Message) {
+        println(": ECHO_REQ: " + m.obj)
+    }
+
+    def echoResCallback(m:Message) {
+        println(": ECHO_RES: " + m.obj)
+    }
+
+    override def connected(connection:Connection) {
+
+    }
+
+    override def disconnected(connection:Connection) {
+
     }
 
     override def received(connection:Connection, obj:Object) {
@@ -26,10 +43,11 @@ class DichListener extends Listener{
                         println(m.obj)
 
                     case MESSAGE_TYPE.ECHO_REQ =>
-                        echoReqCallback(connection, m)
+                        echoReqCallback(m)
+                        connection.sendTCP(new Message(MESSAGE_TYPE.ECHO_RES, m.obj))
 
                     case MESSAGE_TYPE.ECHO_RES =>
-                        println("ECHO_RES: " + m.obj)
+                        echoResCallback(m)
                 }
         }
     }
