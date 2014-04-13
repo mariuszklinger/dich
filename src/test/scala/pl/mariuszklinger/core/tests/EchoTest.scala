@@ -32,7 +32,7 @@ class EchoTest extends FlatSpec with Matchers {
         val message_text = "hello!"
         n2.sendEchoRequest(message_text)
 
-        Thread.sleep(3000)
+        //Thread.sleep(3000)
 
         when(dl.echoReqCallback(m.capture()), timeout(35000)).thenAnswer(new Answer[Unit] {
             override def answer(invocation: InvocationOnMock) {

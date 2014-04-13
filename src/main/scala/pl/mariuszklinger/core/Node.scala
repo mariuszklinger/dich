@@ -7,12 +7,15 @@ import pl.mariuszklinger.core.network.{DichClient, DichServer}
 import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
 import pl.mariuszklinger.core.tools.NeighboursQueue
 
-class Node(_nick:String, port:Int) {
+class Node(_nick:String, _port:Int) {
 
     private val log = Logger.getLogger(this.getClass())
 
     private var neighbours = NeighboursQueue
-    private val nick = _nick
+    var nick = _nick
+    var port = _port
+
+    def this() = this("John", 8081)
 
     val dich_server = new DichServer(this)
 
@@ -32,7 +35,6 @@ class Node(_nick:String, port:Int) {
             case e: IOException => false
         }
 
-        //log.info("connected to " + host + ":" + port)
         true
     }
 

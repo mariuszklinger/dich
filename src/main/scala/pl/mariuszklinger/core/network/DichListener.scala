@@ -6,6 +6,8 @@ import com.esotericsoftware.kryonet.FrameworkMessage.KeepAlive
 import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
 import pl.mariuszklinger.core.Node
 
+import com.esotericsoftware.kryonet.util.TcpIdleSender
+
 class DichListener(_node:Node) extends Listener{
 
     var node = _node
@@ -18,6 +20,10 @@ class DichListener(_node:Node) extends Listener{
 
     def echoResCallback(m:Message) {
         println(": ECHO_RES: " + m.obj)
+    }
+
+    def chatMessageCallback(m:Message) {
+
     }
 
     override def connected(connection:Connection) {

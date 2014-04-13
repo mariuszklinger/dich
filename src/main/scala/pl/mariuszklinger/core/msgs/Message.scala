@@ -15,5 +15,5 @@ class Message(_mtype:MESSAGE_TYPE.MT, _o:Object) {
     var obj = _o
     val mtype = _mtype
 
-    def this() = this(MESSAGE_TYPE.CHAT, null)
+    def this() = this(MESSAGE_TYPE.CHAT, "= DEFAULT =")
 }
