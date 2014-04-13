@@ -3,10 +3,11 @@ package pl.mariuszklinger.core.network
 import com.esotericsoftware.kryonet.{Listener, Client, Connection}
 import com.esotericsoftware.kryo.Kryo
 import pl.mariuszklinger.core.msgs._
+import pl.mariuszklinger.core.Node
 
-class DichClient {
+class DichClient(_node:Node) {
 
-    var listener:DichListener = new DichListener
+    var listener:DichListener = new DichListener(_node)
     val client: Client = new Client()
 
     def run(host:String, port:Int) {

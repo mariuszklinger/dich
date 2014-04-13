@@ -10,10 +10,12 @@ class MessageLog {
 
     def addMessage(hash:String, m:Message){
         message_map.put(hash, m)
+
+        // TODO put the message after correct one
         message_buffer.append(mutable.LinkedList[Message](m))
     }
 
     def getLatestMessages(c:Int = 100):List[Message] = {
-        return null
+        null
     }
 }

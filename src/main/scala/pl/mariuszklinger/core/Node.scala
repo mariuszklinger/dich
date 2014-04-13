@@ -25,7 +25,7 @@ class Node(_nick:String, _port:Int) {
 
     def connect(host:String, port:Int): Boolean = {
 
-        var client = new DichClient
+        var client = new DichClient(this)
         client.run(host, port)
 
         try {
@@ -45,14 +45,14 @@ class Node(_nick:String, _port:Int) {
     }
 
     def sendText(t:String){
-        _send(new Message(MESSAGE_TYPE.CHAT, t))
+        _send(new Message(MESSAGE_TYPE.CHAT, nick, t))
     }
 
     def sendEchoRequest(t:String){
-        _send(new Message(MESSAGE_TYPE.ECHO_REQ, t))
+        _send(new Message(MESSAGE_TYPE.ECHO_REQ, nick, t))
     }
 
     def sendEchoResponse(t:String){
-        _send(new Message(MESSAGE_TYPE.ECHO_RES, t))
+        _send(new Message(MESSAGE_TYPE.ECHO_RES, nick, t))
     }
 }

@@ -11,9 +11,14 @@ object MESSAGE_TYPE {
     val NOTICE:MT = 2.toByte
 }
 
-class Message(_mtype:MESSAGE_TYPE.MT, _o:Object) {
+class Message(_mtype:MESSAGE_TYPE.MT, _nick: String, _o:Object) {
+
     var obj = _o
     val mtype = _mtype
+    val nick = _nick
 
-    def this() = this(MESSAGE_TYPE.CHAT, "= DEFAULT =")
+    // keep hashcode of message it is reply for
+    var parent_hc = null
+
+    def this() = this(MESSAGE_TYPE.CHAT, "Unknown", "= DEFAULT MESSAGE =")
 }

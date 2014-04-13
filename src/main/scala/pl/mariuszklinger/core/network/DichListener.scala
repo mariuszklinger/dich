@@ -15,11 +15,11 @@ class DichListener(_node:Node) extends Listener{
     def this() = this(null)
 
     def echoReqCallback(m:Message) {
-        println(": ECHO_REQ: " + m.obj)
+        println(node.nick + ":[ECHO_REQ]:\t" + m.obj)
     }
 
     def echoResCallback(m:Message) {
-        println(": ECHO_RES: " + m.obj)
+        println(node.nick + ":[ECHO_RES]:\t" + m.obj)
     }
 
     def chatMessageCallback(m:Message) {
@@ -50,7 +50,7 @@ class DichListener(_node:Node) extends Listener{
 
                     case MESSAGE_TYPE.ECHO_REQ =>
                         echoReqCallback(m)
-                        connection.sendTCP(new Message(MESSAGE_TYPE.ECHO_RES, m.obj))
+                        connection.sendTCP(new Message(MESSAGE_TYPE.ECHO_RES, node.nick, m.obj))
 
                     case MESSAGE_TYPE.ECHO_RES =>
                         echoResCallback(m)
