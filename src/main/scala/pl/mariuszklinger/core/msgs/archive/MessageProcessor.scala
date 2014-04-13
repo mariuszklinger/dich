@@ -1,10 +1,12 @@
 package pl.mariuszklinger.core.archive
 
 import pl.mariuszklinger.core.msgs._
+import java.security.MessageDigest
 
 object MessageProcessor{
+
     def getHash(m:Message): String ={
-        m.nick
+        MessageDigest.getInstance("MD5").digest((m.nick + m.obj.toString).getBytes("UTF-8")).toString
     }
 }
 
