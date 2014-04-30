@@ -6,16 +6,17 @@ import pl.mariuszklinger.core.msgs.Message
 class MessageLog {
 
     val message_map = new mutable.HashMap[String, Message]()
-    val message_buffer = new mutable.LinkedList[Message]()
+    var message_buffer = new mutable.LinkedList[Message]()
 
-    def addMessage(hash:String, m:Message){
-        message_map.put(hash, m)
+    def addMessage(m:Message){
 
-        // TODO put the message after correct one
-        message_buffer.append(mutable.LinkedList[Message](m))
+        message_map.synchronized{
+            message_map.put(MessageProcessor.getHash(m), m)
+            message_buffer = message_buffer ++ mutable.LinkedList[Message](m)
+        }
     }
 
-    def getLatestMessages(c:Int = 100):List[Message] = {
-        null
+    def getLatestMessages(c:Int = 100):Seq[Message] = {
+        message_buffer.slice(0, c)
     }
 }

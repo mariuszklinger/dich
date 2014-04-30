@@ -12,4 +12,10 @@ object MessageProcessor{
 
 class MessageProcessor {
 
+    val message_log = new MessageLog
+
+    def archiveMessage(m:Message){
+        message_log.addMessage(m)
+    }
+
 }

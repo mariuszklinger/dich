@@ -9,6 +9,8 @@ object MESSAGE_TYPE {
 
     val CHAT:MT = 1.toByte
     val NOTICE:MT = 2.toByte
+    val HANDSHAKE_REQ:MT = 3.toByte
+    val HANDSHAKE_RES:MT = 4.toByte
 }
 
 class Message(_mtype:MESSAGE_TYPE.MT, _nick: String, _o:Object) {
