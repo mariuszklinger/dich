@@ -23,7 +23,7 @@ class DichListener(_node:Node) extends Listener{
     }
 
     def chatMessageCallback(m:Message) {
-
+        // TODO
     }
 
     override def connected(connection:Connection) {
@@ -47,6 +47,7 @@ class DichListener(_node:Node) extends Listener{
 
                     case MESSAGE_TYPE.CHAT =>
                         println(m.obj)
+                        _node.message_processor.archiveMessage(m)
 
                     case MESSAGE_TYPE.ECHO_REQ =>
                         echoReqCallback(m)

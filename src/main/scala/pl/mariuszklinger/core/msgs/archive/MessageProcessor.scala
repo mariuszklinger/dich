@@ -6,7 +6,7 @@ import java.security.MessageDigest
 object MessageProcessor{
 
     def getHash(m:Message): String ={
-        MessageDigest.getInstance("MD5").digest((m.nick + m.obj.toString).getBytes("UTF-8")).toString
+        MessageDigest.getInstance("MD5").digest((m.nick + m.obj.toString + m.parent_hc).getBytes("UTF-8")).toString
     }
 }
 
