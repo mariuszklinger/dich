@@ -12,7 +12,7 @@ class Node(_nick:String, _port:Int) {
 
     private val log = Logger.getLogger(this.getClass())
 
-    private var neighbours = NeighboursQueue
+    val neighbours = new NeighboursQueue
     val message_processor = new MessageProcessor
     var nick = _nick
     var port = _port
@@ -27,11 +27,8 @@ class Node(_nick:String, _port:Int) {
 
     def connect(host:String, port:Int): Boolean = {
 
-        var client = new DichClient(this)
-        client.run(host, port)
-
         try {
-            neighbours += client
+            neighbours += new DichClient(this, host, port)
         }
         catch {
             case e: IOException => false

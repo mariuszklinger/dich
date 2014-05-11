@@ -8,6 +8,6 @@ object NodeOrdering extends Ordering[DichClient](){
     def compare(x:DichClient, y:DichClient) = -1
 }
 
-object NeighboursQueue extends mutable.PriorityQueue[DichClient]()(NodeOrdering){
+class NeighboursQueue extends mutable.PriorityQueue[DichClient]()(NodeOrdering){
 
 }
