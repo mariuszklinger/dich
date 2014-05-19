@@ -2,6 +2,7 @@ package pl.mariuszklinger.core.network
 
 import com.esotericsoftware.kryonet.{Listener, Client, Connection}
 import com.esotericsoftware.kryo.Kryo
+
 import pl.mariuszklinger.core.msgs._
 import pl.mariuszklinger.core.Node
 
@@ -19,16 +20,20 @@ object DichClient{
 
         client
     }
+
+    def send(connection: Connection, msg: Message){
+        connection.sendTCP(msg)
+    }
 }
 
 class DichClient(_node: Node, _conn: Connection) {
 
-    var listener: DichListener = new DichListener(_node)
-    var connection: Connection = _conn
+    val listener: DichListener = new DichListener(_node)
+    val connection: Connection = _conn
 
     def this(_node: Node, host: String, port: Int) = this(_node, DichClient.getConnectedCliend(_node, host, port))
 
-    def send(r:Message){
-        connection.sendTCP(r)
+    def send(msg:Message){
+        DichClient.send(connection, msg)
     }
 }

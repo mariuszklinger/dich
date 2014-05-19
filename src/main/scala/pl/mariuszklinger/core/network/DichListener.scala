@@ -51,7 +51,7 @@ class DichListener(_node:Node) extends Listener{
 
                     case MESSAGE_TYPE.ECHO_REQ =>
                         echoReqCallback(m)
-                        connection.sendTCP(new Message(MESSAGE_TYPE.ECHO_RES, node.nick, m.obj))
+                        DichClient.send(connection, new Message(MESSAGE_TYPE.ECHO_RES, node.nick, m.obj))
 
                     case MESSAGE_TYPE.ECHO_RES =>
                         echoResCallback(m)
