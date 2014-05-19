@@ -3,8 +3,6 @@ package pl.mariuszklinger.core.tests
 import pl.mariuszklinger.core.archive.MessageProcessor
 import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
 import pl.mariuszklinger.core.Node
-import pl.mariuszklinger.tools.CustomClassLoader
-import pl.mariuszklinger.core.tests.A
 
 import junit.framework.Assert._
 import org.scalatest.{Matchers, FlatSpec}
@@ -23,6 +21,6 @@ class DiscoveringNodesTests  extends FlatSpec with Matchers {
         n2.connect("localhost", 8084)
         n1.connect("localhost", 8083)
 
-        assertTrue(true)
+        //assertTrue(n1.neighbours.size == 2)
     }
 }
