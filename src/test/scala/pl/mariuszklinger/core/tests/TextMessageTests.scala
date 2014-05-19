@@ -23,7 +23,6 @@ class TextMessageTests extends FlatSpec with Matchers {
         val message_text = "hello!"
         n2.sendText(message_text)
 
-
         assertTrue(n1.message_processor.message_log.getLatestMessages().size == 0)
 
         Thread.sleep(3000)
