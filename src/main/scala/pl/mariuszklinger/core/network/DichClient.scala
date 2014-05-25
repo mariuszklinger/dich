@@ -30,8 +30,15 @@ class DichClient(_node: Node, _conn: Connection) {
 
     val listener: DichListener = new DichListener(_node)
     val connection: Connection = _conn
+    var ping: Int = -1
+
+    pingRequest()
 
     def this(_node: Node, host: String, port: Int) = this(_node, DichClient.getConnectedCliend(_node, host, port))
+
+    def pingRequest(){
+        connection.updateReturnTripTime
+    }
 
     def send(msg:Message){
         DichClient.send(connection, msg)

@@ -8,7 +8,7 @@ import pl.mariuszklinger.core.msgs.{Message, MESSAGE_TYPE}
 
 class MessageProcessorTests extends FlatSpec with Matchers {
 
-    "MessageProcessor gets chat Message and" should "archive it" in {
+    "MessageProcessor" should "gets chat Message and archive it" in {
         val msg_processor = new MessageProcessor
         val msg = new Message(MESSAGE_TYPE.CHAT, "John", "X")
         msg_processor.archiveMessage(msg)
@@ -19,30 +19,33 @@ class MessageProcessorTests extends FlatSpec with Matchers {
         assertTrue(res)
     }
 
-    "MessageProcessor gets chat Message and" should "send it further to neighbours" in {
+    it should "gets chat Message and send it further to neighbours" in {
 
     }
 
-    "MessageProcessor" should "provide required chat history" in {
+    it should "provide required chat history" in {
 
     }
 
+    it should "add missing parent Messages to missing_msg stack." in {
 
-    "MessageProcessor" should "produce the same hash codes for 2 the same Messages" in {
+    }
+
+    it should "produce the same hash codes for 2 the same Messages" in {
         val m1 = new Message(MESSAGE_TYPE.CHAT, "A", "B")
         val m2 = new Message(MESSAGE_TYPE.CHAT, "A", "B")
 
         assertTrue(MessageProcessor.getHash(m1).equals(MessageProcessor.getHash(m2)))
     }
 
-    "MessageProcessor" should "not produce the same hash codes for 2 different Messages" in {
+    it should "not produce the same hash codes for 2 different Messages." in {
         val m1 = new Message(MESSAGE_TYPE.CHAT, "A", "B")
         val m2 = new Message(MESSAGE_TYPE.CHAT, "C", "D")
 
         assertFalse(MessageProcessor.getHash(m1).equals(MessageProcessor.getHash(m2)))
     }
 
-    "MessageProcessor gets messages and" should "archive every once." in {
+    it should "gets messages and archive every only once." in {
 
         val msg_processor = new MessageProcessor
 

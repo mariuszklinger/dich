@@ -2,6 +2,7 @@ package pl.mariuszklinger.core
 
 import java.io.IOException
 import org.apache.log4j.Logger
+import scala.collection.mutable.HashMap
 
 import pl.mariuszklinger.core.network.{DichListener, DichClient, DichServer}
 import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
@@ -16,7 +17,10 @@ class Node(_nick: String, _port: Int) {
     val port = _port
 
     val dich_server = new DichServer(this)
-    val neighbours = new NeighboursQueue
+
+    private val neighbours_map = new HashMap[Int, DichClient]()
+    private val neighbours = new NeighboursQueue
+
     val listener = new DichListener(this)
     val message_processor = new MessageProcessor
 
@@ -29,13 +33,23 @@ class Node(_nick: String, _port: Int) {
     def connect(host:String, port:Int): Boolean = {
 
         try {
-            neighbours += new DichClient(this, host, port)
+            val dc = new DichClient(this, host, port)
+            addClient(dc)
         }
         catch {
             case e: IOException => false
         }
 
         true
+    }
+
+    def addClient(dc: DichClient){
+        neighbours += dc
+        neighbours_map += (dc.connection.getID -> dc)
+    }
+
+    def getClientByID(ID: Int): DichClient = {
+        neighbours_map.get(ID).get
     }
 
     def sendText(t:String){
@@ -51,7 +65,7 @@ class Node(_nick: String, _port: Int) {
     }
 
     private def _send(m:Message){
-        neighbours.foreach((client:DichClient) => {
+        neighbours foreach((client:DichClient) => {
             client.send(m)
         })
     }

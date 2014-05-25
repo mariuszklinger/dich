@@ -1,12 +1,10 @@
 package pl.mariuszklinger.core.network
 
 import com.esotericsoftware.kryonet.{Connection, Listener}
-import com.esotericsoftware.kryonet.FrameworkMessage.KeepAlive
+import com.esotericsoftware.kryonet.FrameworkMessage.{Ping, KeepAlive}
 
 import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
 import pl.mariuszklinger.core.Node
-
-import com.esotericsoftware.kryonet.util.TcpIdleSender
 
 class DichListener(_node: Node) extends Listener{
 
@@ -27,21 +25,28 @@ class DichListener(_node: Node) extends Listener{
     }
 
     override def connected(connection: Connection) {
-        _node.neighbours += new DichClient(_node, connection)
+        _node.addClient(new DichClient(_node, connection))
     }
 
     override def disconnected(connection: Connection) {
 
     }
 
-    override def received(connection: Connection, obj:Object) {
+    override def received(connection: Connection, obj: Object) {
 
         obj match {
 
+            case p: Ping =>
+
+                if(p.isReply){
+                    _node.getClientByID(connection.getID).ping = connection.getReturnTripTime
+                }
+
             case ka: KeepAlive =>
+
                 print("_")
 
-            case m:Message =>
+            case m: Message =>
 
                 m.mtype match {
 
