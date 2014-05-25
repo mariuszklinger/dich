@@ -8,33 +8,33 @@ import pl.mariuszklinger.core.Node
 
 import com.esotericsoftware.kryonet.util.TcpIdleSender
 
-class DichListener(_node:Node) extends Listener{
+class DichListener(_node: Node) extends Listener{
 
     var node = _node
 
     def this() = this(null)
 
-    def echoReqCallback(m:Message) {
+    def echoReqCallback(m: Message) {
         println(node.nick + ":[ECHO_REQ]:\t" + m.obj)
     }
 
-    def echoResCallback(m:Message) {
+    def echoResCallback(m: Message) {
         println(node.nick + ":[ECHO_RES]:\t" + m.obj)
     }
 
-    def chatMessageCallback(m:Message) {
+    def chatMessageCallback(m: Message) {
         // TODO
     }
 
-    override def connected(connection:Connection) {
+    override def connected(connection: Connection) {
+        _node.neighbours += new DichClient(_node, connection)
+    }
+
+    override def disconnected(connection: Connection) {
 
     }
 
-    override def disconnected(connection:Connection) {
-
-    }
-
-    override def received(connection:Connection, obj:Object) {
+    override def received(connection: Connection, obj:Object) {
 
         obj match {
 

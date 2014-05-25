@@ -1,12 +1,9 @@
 package pl.mariuszklinger.core.tests
 
-import org.scalatest.{Matchers, FlatSpec}
-import com.esotericsoftware.kryonet.Connection
-import junit.framework.Assert._
-
-import pl.mariuszklinger.core.network.DichListener
-import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
 import pl.mariuszklinger.core.Node
+
+import org.scalatest.{Matchers, FlatSpec}
+import junit.framework.Assert._
 
 class TextMessageTests extends FlatSpec with Matchers {
 

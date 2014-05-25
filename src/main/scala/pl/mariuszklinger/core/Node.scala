@@ -17,7 +17,7 @@ class Node(_nick: String, _port: Int) {
 
     val dich_server = new DichServer(this)
     val neighbours = new NeighboursQueue
-    val listener = new DichListener(this)//TODO uzyc!
+    val listener = new DichListener(this)
     val message_processor = new MessageProcessor
 
     def this() = this("John", 8081)

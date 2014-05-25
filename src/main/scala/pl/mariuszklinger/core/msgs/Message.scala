@@ -1,5 +1,7 @@
 package pl.mariuszklinger.core.msgs
 
+import pl.mariuszklinger.core.archive.MessageProcessor
+
 object MESSAGE_TYPE {
 
     type MT = Byte
@@ -13,14 +15,29 @@ object MESSAGE_TYPE {
     val HANDSHAKE_RES:MT = 4.toByte
 }
 
-class Message(_mtype:MESSAGE_TYPE.MT, _nick: String, _o:Object) {
+object Message{
 
-    var obj = _o
+    def getPlaceholderForHash(h: String): Message = {
+        val m = new Message(MESSAGE_TYPE.CHAT, "", "", null)
+        m.msg_hash = h
+        m
+    }
+}
+
+class Message(_mtype: MESSAGE_TYPE.MT, _nick: String, _msg_obj: String, _parent_hc: String = null) {
+
+    var obj = _msg_obj
     val mtype = _mtype
     val nick = _nick
 
-    // keep hashcode of message it is reply for
+    var msg_hash = MessageProcessor.getHash(this)
+
+    // keep hashcode of parent message
     var parent_hc = null
 
     def this() = this(MESSAGE_TYPE.CHAT, "Unknown", "= DEFAULT MESSAGE =")
+
+    override def toString(): String = {
+        ">" + nick + ": " + obj
+    }
 }

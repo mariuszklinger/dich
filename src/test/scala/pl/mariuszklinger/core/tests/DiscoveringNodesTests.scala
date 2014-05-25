@@ -1,14 +1,14 @@
 package pl.mariuszklinger.core.tests
 
-import pl.mariuszklinger.core.archive.MessageProcessor
-import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
-import pl.mariuszklinger.core.Node
-
 import junit.framework.Assert._
 import org.scalatest.{Matchers, FlatSpec}
 import org.junit.runner.RunWith
 import java.net.URLClassLoader
 import java.lang.reflect.Method
+
+import pl.mariuszklinger.core.archive.MessageProcessor
+import pl.mariuszklinger.core.msgs.{MESSAGE_TYPE, Message}
+import pl.mariuszklinger.core.Node
 
 class DiscoveringNodesTests  extends FlatSpec with Matchers {
 
