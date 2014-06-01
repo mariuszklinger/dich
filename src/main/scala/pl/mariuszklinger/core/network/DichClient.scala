@@ -30,7 +30,7 @@ class DichClient(_node: Node, _conn: Connection) {
 
     val listener: DichListener = new DichListener(_node)
     val connection: Connection = _conn
-    var ping: Int = -1
+    var ping: Int = Int.MaxValue
 
     pingRequest()
 
